@@ -162,6 +162,37 @@ var len = 15
  	ap = await zahirr.findOne({apikey:api})
  return ap;
  }
+const listkey = ["RakuGans"];
+
+router.post("/apikey", async (req, res, next) => {
+  const key = req.query.key;
+  if(listkey.includes(key)) {
+    res.json({
+      message: 'apikey sudah terdaftar'
+    });
+  } else {
+    listkey.push(key);
+    res.json({
+      message: `berhasil mendaftarkan ${key} Kedatabase apikey`
+    });
+  }
+});
+
+// delete apikey
+
+router.delete("/apikey", async(req, res, next) => {
+	const key = req.query.delete;
+	if(listkey.includes(key)) {
+		res.json({
+			message: 'apikey tidak ada sebelumnya'
+			})
+			} else {
+	listkey.splice(key, 1)
+	res.json({
+		message: 'apikey berhasil dihapus' 
+});
+ }
+});
 router.get('/find', async (req, res, next) => {
     var apikey = req.query.apikey
     if (!apikey) return res.json(loghandler.notparam)
