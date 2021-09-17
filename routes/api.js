@@ -12,6 +12,7 @@ var creatorList = ['@RakuGans','@ZeroGans','@ZEROBOT'];
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)];
 
 
+var a = require('acb-api');
 var ytdl = require('ytdl-core');
 var ytpl = require('ytpl');
 var secure = require('ssl-express-www');
@@ -20,11 +21,36 @@ var scrapeYt = require("scrape-yt");
 var fetch = require('node-fetch');
 var cheerio = require('cheerio');
 var request = require('request');
+//baru ngab 
+
+var kbeta = require('knights-beta');
+
+var DIG = require('discord-image-generation');
+var Caxinha = require('caxinha');
+var Swiftcord = require('swiftcord');
+var cling = require('canvas-lingmo');
+var gis = require('g-i-s');
+var Cannvas = require('discord-canvas');
+var canvas = require('canvas');
+var scanvas = require('scanvas');
+var swiftlite = require('kanvas-discrot');
+var Ra = require('ra-api');
+var kj = require('kanvas-jimp');
+var yuricanvas = require("yuri-canvas");
+var kanpas = require('kanvas-wea');
+var knights = require('knights-canvas');
+//tamat
+
 var TikTokScraper = require('tiktok-scraper');
+var imageToBase64 = require('image-to-base64');
+var imgbb = require('imgbb-uploader');
+var fbdl = require('fbdl-core');
+var YoutubeAPI = require('simple-youtube-api')
+var youtubs = new YoutubeAPI('AIzaSyB2DRtHACCeIzgduQzzITkS4rnpz_sA2BA'); 
 var router  = express.Router();
 
 var { color, bgcolor } = require(__path + '/lib/color.js');
-var { fetchJson } = require(__path + '/lib/fetcher.js')
+var { fetchJson, getBuffer } = require(__path + '/lib/fetcher.js')
 var options = require(__path + '/lib/options.js');
 var {
 	Vokal,
@@ -132,7 +158,7 @@ loghandler = {
         creator: `${creator}`,
         code: 406,
         message: 'masukan parameter status, apikeyInput, email, nomorhp, name, age, country, exp'
-    },
+    }, 
     error: {
         status: false,
         creator: `${creator}`,
@@ -155,44 +181,13 @@ var len = 15
             randomlagi += arr[Math.floor(Math.random() * arr.length)];
         }
 
-        var randomTextNumber = random+randomlagi+'---------ZahirGanteng'+'ZHIRRR--GANS';
+        var randomTextNumber = random+randomlagi+'---------RakuGans'+'ZEROBOT-API';
         
  
- async function cekApiKey(api) {
+async function cekApiKey(api) {
  	ap = await zahirr.findOne({apikey:api})
  return ap;
  }
-const listkey = ["RakuGans"];
-
-router.post("/apikey", async (req, res, next) => {
-  const key = req.query.key;
-  if(listkey.includes(key)) {
-    res.json({
-      message: 'apikey sudah terdaftar'
-    });
-  } else {
-    listkey.push(key);
-    res.json({
-      message: `berhasil mendaftarkan ${key} Kedatabase apikey`
-    });
-  }
-});
-
-// delete apikey
-
-router.delete("/apikey", async(req, res, next) => {
-	const key = req.query.delete;
-	if(listkey.includes(key)) {
-		res.json({
-			message: 'apikey tidak ada sebelumnya'
-			})
-			} else {
-	listkey.splice(key, 1)
-	res.json({
-		message: 'apikey berhasil dihapus' 
-});
- }
-});
 router.get('/find', async (req, res, next) => {
     var apikey = req.query.apikey
     if (!apikey) return res.json(loghandler.notparam)
@@ -212,41 +207,7 @@ router.get('/find', async (req, res, next) => {
         res.json(loghandler.error)
     }
 })
-/*outer.get('/music/joox', async (req, res, next) => {
 
-	var apikeyInput = req.query.apikey,            query = req.query.query
-
-            
-
-	if(!apikeyInput) return res.json(loghandler.notparam)
-
-	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
-
-    if (!query) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter query"})
-
-	jooxdl(query)
-
-		 .then(url => {
-
-		 res.json({
-
-		      status: true,
-
-		      creator: `${creator}`,
-
-		      result: url
-
-	 })
-
-	 .catch(e => {
-
-			console.log('Error :', color(e, 'red'))
-
-			res.json(loghandler.error)
-
-	})
-
-})*/
 router.get('/cekapikey', async (req, res, next) => {
 	var apikeyInput = req.query.apikey
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -283,7 +244,7 @@ router.get('/addapikey', (req, res, next) => {
         status = req.query.status,
         apikeyInput  = req.query.apikeyInput,
         email = req.query.email,
-        nomorhp = req.query.nomorhp
+        nomorhp = req.query.nomorhp,
         name = req.query.name,
         age = req.query.age,
         country = req.query.country;
@@ -316,6 +277,529 @@ router.get('/addapikey', (req, res, next) => {
         res.json(loghandler.error)
     }
 })
+
+//beta delete klo work
+router.get('/knights/rank', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            pp = req.query.pp,
+            nama = req.query.nama,
+            bg = req.query.bg,
+            needxp = req.query.needxp,
+            currxp = req.query.currxp,
+            level = req.query.level,
+            rank = req.query.rank   
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    //param
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    if (!needxp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter needxp"})
+    if (!currxp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter currxp"})
+    if (!level) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter level"})
+    if (!rank) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter rank"})
+    
+var image = await new knights.Rank()
+    .setAvatar(`${pp}`) 
+    .setUsername(`${nama}`) 
+    .setBg(`${bg}`)
+    .setNeedxp(`${needxp}`) 
+    .setCurrxp(`${currxp}`) 
+    .setLevel(`${level}`) 
+    .setRank(`${rank}`) 
+    .toAttachment();
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/brank.png', data)
+  res.sendFile(__path +'/tmp/brank.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/knights/levelup', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            pp = req.query.pp
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})       
+var image = await new knights.Up()
+    .setAvatar(`${pp}`)
+    .toAttachment();
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/sup.png', data)
+  res.sendFile(__path +'/tmp/sup.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/knights/bag', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            bg = req.query.bg,
+            stone = req.query.stone,
+            coal = req.query.coal,
+            wood = req.query.wood,
+            core = req.query.core,
+            iore = req.query.iore,
+            gore = req.query.gore,
+            cingot = req.query.cingot,
+            iingot = req.query.iingot,
+            gingot = req.query.gingot,
+            diamond = req.query.diamond,
+            ruby = req.query.ruby,
+            uranium = req.query.uranium,
+            jadite = req.query.jadite,
+            leather = req.query.leather,
+            meat = req.query.meat,
+            fish = req.query.fish
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+var image = await new knights.Bag()
+    .setBackground(`${bg}`)
+	.setStone(`${stone}`)
+	.setCoal(`${coal}`)
+	.setWood(`${wood}`)
+	.setCore(`${core}`)
+	.setIore(`${iore}`)
+	.setGore(`${gore}`)
+	.setCingot(`${cingot}`)
+	.setIingot(`${iingot}`)
+	.setGingot(`${gingot}`)
+	.setDiamond(`${diamond}`)
+	.setRuby(`${ruby}`)
+	.setUranium(`${uranium}`)
+	.setJadite(`${jadite}`)
+	.setLeather(`${leather}`)
+	.setMeat(`${meat}`)
+	.setFish(`${fish}`)
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/bag.png', data)
+  res.sendFile(__path +'/tmp/bag.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+
+router.get('/bot/welkom2', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            gc = req.query.gc,
+            member = req.query.member,
+            pp = req.query.pp,
+            bg = req.query.bg            
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!member) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter member"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+       
+var image = await new knights.Welcome2()
+    .setAvatar(`${pp}`)
+    .setUsername(`${nama}`) 
+    .setBg(`${bg}`) 
+    .setGroupname(`${gc}`) 
+    .setMember(`${member}`) 
+    .toAttachment();
+    
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/sewelkom2.png', data)
+  res.sendFile(__path +'/tmp/sewelkom2.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/bot/goodbye2', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            member = req.query.member,
+            pp = req.query.pp,
+            bg = req.query.bg            
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!member) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter member"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+       
+var image = await new knights.Goodbye2()
+    .setAvatar(`${pp}`)
+    .setUsername(`${nama}`) 
+    .setBg(`${bg}`) 
+    .setMember(`${member}`) 
+    .toAttachment();
+    
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/segoodbye2.png', data)
+  res.sendFile(__path +'/tmp/segoodbye2.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/bot/gfx1', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+   
+var image = await new knights.Gfx1()
+    .setName(`${nama}`) 
+    .toAttachment();
+    
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/gfx1.png', data)
+  res.sendFile(__path +'/tmp/gfx1.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/bot/gfx2', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+   
+var image = await new knights.Gfx2()
+    .setName(`${nama}`) 
+    .toAttachment();
+    
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/gfx2.png', data)
+  res.sendFile(__path +'/tmp/gfx2.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/bot/gfx3', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            text1 = req.query.text1,
+            text2 = req.query.text2
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!text1) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text1"})
+    if (!text2) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text2"})
+   
+var image = await new knights.Gfx3()
+    .setText1(`${text1}`) 
+    .setText2(`${text2}`)
+    .toAttachment();
+    
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/gfx3.png', data)
+  res.sendFile(__path +'/tmp/gfx3.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/bot/gfx4', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            text1 = req.query.text1,
+            text2 = req.query.text2
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!text1) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text1"})
+    if (!text2) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text2"})
+   
+var image = await new knights.Gfx4()
+    .setText1(`${text1}`) 
+    .setText2(`${text2}`)
+    .toAttachment();
+    
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/gfx4.png', data)
+  res.sendFile(__path +'/tmp/gfx4.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/bot/gfx5', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            text = req.query.text
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
+   
+var image = await new knights.Gfx5()
+    .setText1(`${text}`) 
+    .toAttachment();
+    
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/gfx4.png', data)
+  res.sendFile(__path +'/tmp/gfx4.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/bot/gura', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+   
+var image = await new knights.Gura()
+    .setName(`${nama}`) 
+    .toAttachment();
+    
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/Gura.png', data)
+  res.sendFile(__path +'/tmp/Gura.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/knights/inv', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            pp = req.query.pp,
+            nama = req.query.nama,
+            bg = req.query.bg,            
+            coal = req.query.coal,
+            stone = req.query.stone,
+            ore = req.query.ore,
+            ingot = req.query.ingot,
+            wood = req.query.wood,
+            fish = req.query.fish
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    if (!coal) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter coal"})
+    if (!stone) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter stone"})
+    if (!ore) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter ore"})
+    if (!ingot) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter ingot"})
+    if (!wood) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter wood"})
+    if (!fish) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter fish"})
+    
+    
+var image = await new knights.Inv()
+    .setAvatar(`${pp}`)
+    .setUsername(`${nama}`)
+    .setBackground(`${bg}`)
+    .setCoal(`${coal}`)
+    .setStone(`${stone}`)
+    .setOre(`${ore}`)
+    .setIngot(`${ingot}`)
+    .setWood(`${wood}`)
+    .setFish(`${fish}`)
+    .toAttachment();
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/inv.png', data)
+  res.sendFile(__path +'/tmp/inv.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/knights/spongebob', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            pp = req.query.pp
+         
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    
+var image = await new knights.Burn()
+    .setAvatar(`${pp}`)
+    .toAttachment();
+  
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/spongebob.png', data)
+  res.sendFile(__path +'/tmp/spongebob.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/knights/patrick', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            pp = req.query.pp
+         
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    
+var image = await new kbeta.Patrick()
+    .setAvatar(`${pp}`)
+    .toAttachment();
+  
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/patrick.png', data)
+  res.sendFile(__path +'/tmp/patrick.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/beta/hacker1', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            text = req.query.text
+         
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
+    
+var image = await new kbeta.Hacker1()
+    .setText(`${text}`)
+    .toAttachment();
+  
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/hacker1.png', data)
+  res.sendFile(__path +'/tmp/hacker1.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/beta/hacker2', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            pp = req.query.pp
+         
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    
+var image = await new kbeta.Hacker2()
+    .setAvatar(`${pp}`)
+    .toAttachment();
+  
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/hacker2.png', data)
+  res.sendFile(__path +'/tmp/hacker2.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/beta/hacker3', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            pp = req.query.pp
+         
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    
+var image = await new kbeta.Hacker3()
+    .setAvatar(`${pp}`)
+    .toAttachment();
+  
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/hacker3.png', data)
+  res.sendFile(__path +'/tmp/hacker3.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+//next update apaan njink
+
+
+router.get('/canvas/welkom', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            gc = req.query.gc,
+            ppgc = req.query.ppgc,
+            member = req.query.member,
+            pp = req.query.pp,
+            bg = req.query.bg            
+
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!member) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter member"})
+    if (!ppgc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter ppgc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    
+    
+var image = await new knights.Welcome()
+    .setUsername(`${nama}`)
+    .setGuildName(`${gc}`)
+    .setGuildIcon(`${ppgc}`)
+    .setMemberCount(`${member}`)
+    .setAvatar(`${pp}`)
+    .setBackground(`${bg}`)
+    .toAttachment();
+  
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/sewelkom.png', data)
+  res.sendFile(__path +'/tmp/sewelkom.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/canvas/goodbye', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            gc = req.query.gc,
+            ppgc = req.query.ppgc,
+            member = req.query.member,
+            pp = req.query.pp,
+            bg = req.query.bg            
+
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!member) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter member"})
+    if (!ppgc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter ppgc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    
+    
+var image = await new knights.Goodbye()
+    .setUsername(`${nama}`)
+    .setGuildName(`${gc}`)
+    .setGuildIcon(`${ppgc}`)
+    .setMemberCount(`${member}`)
+    .setAvatar(`${pp}`)
+    .setBackground(`${bg}`)
+    .toAttachment();
+  
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/segoodbye.png', data)
+  res.sendFile(__path +'/tmp/segoodbye.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
 
 router.get('/remove', (req, res, next) => {
     var apikey = req.query.apikey,
@@ -355,6 +839,1045 @@ router.get('/remove', (req, res, next) => {
         res.json(loghandler.error)
     }
 })
+
+/*
+=====> UPDATE AN GW <=====
+*/
+
+router.get('/kanpas/welkom3', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            gc = req.query.gc,
+            pp = req.query.pp,
+            bg = req.query.bg
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    
+var image = await new kanpas.Welcome()
+  .setGuildIcon(`${pp}`)
+  .setGuildName(`${nama}`)
+  .setMemberCount(`${gc}`)
+  .setBackground(`${bg}`)
+  .toAttachment();
+  
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/welkom3.png', data)
+  res.sendFile(__path+'/tmp/welkom3.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/kanpas/goodbye3', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            gc = req.query.gc,
+            pp = req.query.pp,
+            bg = req.query.bg
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    
+var image = await new kanpas.Goodbye()
+  .setGuildIcon(`${pp}`)
+  .setGuildName(`${nama}`)
+  .setMemberCount(`${gc}`)
+  .setBackground(`${bg}`)
+  .toAttachment();
+  
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/goodbye3.png', data)
+  res.sendFile(__path+'/tmp/goodbye3.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+//===end
+router.get('/kanpas/welkom', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            gc = req.query.gc,
+            pp = req.query.pp,
+            bg = req.query.bg
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    
+var image = await new kanpas.Welcome()
+  .setGuildIcon(`${pp}`)
+  .setGuildName(`${nama}`)
+  .setMemberCount(`${gc}`)
+  .setBackground(`${bg}`)
+  .toAttachment();
+  
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/goodbye3.png', data)
+  res.sendFile(__path+'/tmp/goodbye3.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/kanpas/goodbye', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            gc = req.query.gc,
+            pp = req.query.pp,
+            bg = req.query.bg
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    
+var image = await new kanpas.Goodbye()
+  .setGuildIcon(`${pp}`)
+  .setGuildName(`${nama}`)
+  .setMemberCount(`${gc}`)
+  .setBackground(`${bg}`)
+  .toAttachment();
+  
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/goodbye3.png', data)
+  res.sendFile(__path+'/tmp/goodbye3.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+
+
+
+
+router.get('/level2', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            pp = req.query.pp,
+            bg = req.query.bg,           
+            xp = req.query.xp,           
+            fullxp = req.query.fullxp,           
+            color = req.query.color
+            
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    if (!xp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter xp"})
+    if (!fullxp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter fullxp"})
+    if (!color) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter color"})
+    
+    
+const rank = await new scanvas.RankCard()
+.setName(`${nama}`) 
+.setAvatar(`${pp}`)
+.setXp(xp)
+.setColor(`#${color}`)
+.setFullXp(fullxp)
+.setBackground(`${bg}`)
+.toAttachment();
+
+ data = rank.toBuffer();
+await fs.writeFileSync(__path +'/tmp/level.png', data)
+  res.sendFile(__path+'/tmp/level.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+//===RA API
+
+router.get('/stiker', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            query = req.query.query
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!query) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter query"})
+
+       Ra.stickerSearch(query)
+        .then(data => {
+        var result = data;
+             res.json({
+                 status : true,
+                 creator : `${creator}`,
+                 result,
+                 message : `jangan lupa follow ${creator}`
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/mangatoon', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            query = req.query.query
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!query) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter query"})
+
+       await Ra.ManggaToon(query)
+        .then(data => {
+        var result = data;
+             res.json({
+                 status : true,
+                 creator : `${creator}`,
+                 result,
+                 message : `jangan lupa follow ${creator}`
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+//end ra api
+
+//skrep by gw 
+router.get('/waifu2', (req, res, next) => {
+    try {
+    	var linky = ['https://results.dogpile.com/serp?qc=images&q=waifu&sc=SCBYWmK-IqMbAPsGTGrkO4P8-CeQE9Fp0BkIuPL9RDVMbuE9M6ypoXN2Hf8QtXGKZIFibPWDWOtn_hHCOqWiY24vuM3mRzMwXQ1ElX6c_FhmRftDSNynt8H-MXkLdeyIRT0SvxbGP1dbnP031-Zy_IuT-uUPLj-S9UsyumQZ-cG-r28FDiPI5o7297P_-h0s96FjW1QuN-hecMzuLU7X0qI6Ga7NdnqBQcJw840J2HQdhuSg4aXmJemVE-_iMnkLmnA3nph1tq4IICpdAAs7WYrOb_XifDAZh0WyfzMDPcoNcffLYpqBoZEpoIwuHJ8idFHUUZKwdElPUvJH6KcJhXSF1MrN8TK1eDKnUzgMiBCHCo3u2_Ev878Q1BmWknU0EmHixPkm_w9AyUWz8BvjGpkRnAZTX_jjsKG79Zzbe9UmsrTFUT2LNsnbV1b2pF_mwdx9woqjZ5-4MyKrYeGH4Zfk6uxfh0ea2_vFfZJkh9dV4GleZG4ZDK3mmoflGJYY6nvfCTgTB6BvgAB1PqqkBWqJfMU1GYWgRz-g676kiFd6VKjkThNhshZ1oUw3w14zMYkKUgMO3PZaWSXXnvzWxdOlut23invlKz9IYmXKUzUjuMEQfRXOXykt8XWK_lzfB_najxOAL_2Zp9kRs40mvuv382pYXBGp5YraQo2vT0RkYgs6qGIajDJNIRd-bUEFUGMiOCILJrgU8xcXZiYSkpHH0cnfBdNNh9ybHMD4Ghg-YB5ZYn3iE88tGqH6g6_HVhQy3hyAh5xymvs-yVPU0LEARIA26GdHtDZT0hcT5fsjmdN-bq-s9VhnCNGJFMXHku0gC4JODtYSHXByilBr-IUR5OhcvtlADzobN4etVvOmoeNY1hmFtR8XmT1yudc4SYwna61SmdCgn97eXvOH0-aF4YlXdxRhS6ora9Y0H6jTul05AA1kTuhtksWVrx3GNKcHMX-OZJIjIGU8aweQRhGvDbGxDB3MQG8HRcQicEPzw5xjiGYriwqGmoxuHZGnZb8jOykQnmrpDSrgK85DLubsxy5hYDdaE9R2HIYtPMh1A5SA1JBbq3uSsuwVbjhR1-WYjSGcpuOSiKmaPveNqV-0Bq3377j3Yd_Z9PTp18u0cYES0V4S2bz3CMzFUXw1A0gKFez6N5_pCtBimlIg1rM7V5Zj22KvlR8c2R9qMrO8YD9RurTaG8kMZTgm8bUgj2VkeGrz4hdMs8bXIz_uvZ1EAEfFZUdQoVmdtkzf8j-3hlK44rhJh3ofFZG0BAUsw7dtT1fYYZkanLNxE1Ns6G4UMBYqryma-7auKxKcgkhyX_J3UhCCtW8JaYpqFnsdCo3ExgLK6n8D8kDG-ARgVnkN42MtUxjWA2Lqufy_3VHGk_s6RSmo1xCgPSDJ5VSf2cpojvRakuGansPUjivNQs3N0IZIBXABKUy96CjOrRcfVq_S4yqdHfJ75KjzCVSrtroO5E6As9QkU0njmL_Dc-jWsJS-KZ-KYsoyUXvk7ZIKdxUZSefwlg62cGc0U1GipNmLTap9irMaf8d4-sA7w0za-4QT6mVhSMx7p14Dobo8rocH29ZnhRj7uJyXvGahq9d2Q4P_wE_dSeWAngZnB2pFeqWmqulmL36O_ixQrI-0esLqBgsCqvf2nvUFlTySoGXqX2egLMgVyv15JGWQQL5mxI6SzMoaAUQqgpRDKCcXwQgHFCzV1lbkji4bimaCCgXZFC2ATWF5swID0JPkIFjCPhSNFsiextaoaCqpcdH0PQLQwlEE3NbfRDeYTrpYP_PCWIbwh8l6coqGwMPJWWo-lmy3fV78Q9Ig7Tzs1vaBd_TLVDdDh0I7U2TdMT2CEEABxt7f0qM1fDAHIeFG7-qZwOt0xuvLtgjSi3x8MjehTZr4-u0HYEME_XwJoV1XGIn97pgWlCcRNw1RC87QG0GBkcKUW-270UQbDSzPOuciD6Jvs7uHKjy-lzju_0Q2Kf5-xpPWGhaNRtDjSw-E7','https://results.dogpile.com/serp?q=waifu&page=2&sc=52YMfttMEPzz20','https://results.dogpile.com/serp?q=waifu&page=3&sc=iyfRPp85I99Q20','https://results.dogpile.com/serp?q=waifu&page=4&sc=07VtnOkPGODm20'];
+         var urls = linky[Math.floor(Math.random() * linky.length)];
+        var options = {
+            url: `${urls}`,
+            method: "GET",
+            headers: {
+                "Accept": "text/html",
+                "User-Agent": "Chrome"
+            }
+        }
+
+        request(options, function(error, response, responseBody) {
+            if (error) return
+
+            $ = cheerio.load(responseBody)
+            var links = $(".image a.link")
+            var cari = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"))
+
+            if (!cari.length) return
+            var hasil = cari[Math.floor(Math.random() * cari.length)]
+
+            res.json({
+                status : true,
+                creator : `${creator}`,
+                result : {
+                    image : hasil,
+                },
+                message : `by ${creator}`})
+            })
+    } catch (e) {}
+})
+
+
+router.get('/loli', (req, res, next) => {
+    try {
+    	var linky = ['https://results.dogpile.com/serp?qc=images&q=LOLI','https://results.dogpile.com/serp?q=LOLI&page=2&sc=yIbTvMawLWqx20','https://results.dogpile.com/serp?q=LOLI&page=3&sc=HGB9qn7Rsx7820'];
+         var urls = linky[Math.floor(Math.random() * linky.length)];
+        var options = {
+            url: `${urls}`,
+            method: "GET",
+            headers: {
+                "Accept": "text/html",
+                "User-Agent": "Chrome"
+            }
+        }
+
+        request(options, function(error, response, responseBody) {
+            if (error) return
+
+            $ = cheerio.load(responseBody)
+            var links = $(".image a.link")
+            var cari = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"))
+
+            if (!cari.length) return
+            var hasil = cari[Math.floor(Math.random() * cari.length)]
+
+            res.json({
+                status : true,
+                creator : `${creator}`,
+                result : {
+                    image : hasil,
+                },
+                message : `by ${creator}`})
+            })
+    } catch (e) {}
+})
+
+router.get('/shota', (req, res, next) => {
+    try {
+    	var linky = ['https://results.dogpile.com/serp?q=Shota+anime&sc=2ZwOzd8GPmQQ20','https://results.dogpile.com/serp?q=Shota+anime&page=2&sc=VrmtiV0BBsgz20','https://results.dogpile.com/serp?q=Shota+anime&page=3&sc=bxi1gGGxXjwc20'];
+         var urls = linky[Math.floor(Math.random() * linky.length)];
+        var options = {
+            url: `${urls}`,
+            method: "GET",
+            headers: {
+                "Accept": "text/html",
+                "User-Agent": "Chrome"
+            }
+        }
+
+        request(options, function(error, response, responseBody) {
+            if (error) return
+
+            $ = cheerio.load(responseBody)
+            var links = $(".image a.link")
+            var cari = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"))
+
+            if (!cari.length) return
+            var hasil = cari[Math.floor(Math.random() * cari.length)]
+
+            res.json({
+                status : true,
+                creator : `${creator}`,
+                result : {
+                    image : hasil,
+                },
+                message : `by ${creator}`})
+            })
+    } catch (e) {}
+})
+
+
+router.get('/nekonime', (req, res, next) => {
+    try {
+    	var linky = ['https://results.dogpile.com/serp?q=Neko+anime&sc=k1iSjHskjBkF20','https://results.dogpile.com/serp?q=Neko+anime&page=2&sc=JzpyiXU9Ybro20','https://results.dogpile.com/serp?q=Neko+anime&page=3&sc=tOR0fEAJOXXI20'];
+         var urls = linky[Math.floor(Math.random() * linky.length)];
+        var options = {
+            url: `${urls}`,
+            method: "GET",
+            headers: {
+                "Accept": "text/html",
+                "User-Agent": "Chrome"
+            }
+        }
+
+        request(options, function(error, response, responseBody) {
+            if (error) return
+
+            $ = cheerio.load(responseBody)
+            var links = $(".image a.link")
+            var cari = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"))
+
+            if (!cari.length) return
+            var hasil = cari[Math.floor(Math.random() * cari.length)]
+
+            res.json({
+                status : true,
+                creator : `${creator}`,
+                result : {
+                    image : hasil,
+                },
+                message : `by ${creator}`})
+            })
+    } catch (e) {}
+})
+
+
+router.get('/depression', (req, res, next) => {
+    try {
+    	var linky = ['https://results.dogpile.com/serp?q=depression+anime+&sc=UAJrG239tQt420','https://results.dogpile.com/serp?q=depression+anime+&page=2&sc=6LMFqN0XWrQS20','https://results.dogpile.com/serp?q=depression+anime+&page=4&sc=q3aApBC1iNjz20'];
+         var urls = linky[Math.floor(Math.random() * linky.length)];
+        var options = {
+            url: `${urls}`,
+            method: "GET",
+            headers: {
+                "Accept": "text/html",
+                "User-Agent": "Chrome"
+            }
+        }
+
+        request(options, function(error, response, responseBody) {
+            if (error) return
+
+            $ = cheerio.load(responseBody)
+            var links = $(".image a.link")
+            var cari = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"))
+
+            if (!cari.length) return
+            var hasil = cari[Math.floor(Math.random() * cari.length)]
+
+            res.json({
+                status : true,
+                creator : `${creator}`,
+                result : {
+                    image : hasil,
+                },
+                message : `by ${creator}`})
+            })
+    } catch (e) {}
+})
+
+
+//end scrape by Linz
+
+
+
+
+router.get('/waifu', async (req, res, next) => {
+        var apikeyInput = req.query.apikey
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+        
+        await waifuR(res => {
+		var result = res;
+                res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+//new====canvas====new
+
+router.get('/dead', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       data = await new kj.Deadmc().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/dead.png', img)
+        res.sendFile(__path+'/tmp/dead.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/delete', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await new DIG.Delete().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/delete.png', img)
+        res.sendFile(__path+'/tmp/delete.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/beautiful', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await new DIG.Beautiful().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/beautiful.png', img)
+  res.sendFile(__path+'/tmp/beautiful.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/bobross', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await new DIG.Bobross().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/bobros.png', img)
+  res.sendFile(__path+'/tmp/bobros.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/hitler', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await new DIG.Hitler().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/hitler.png', img)
+  res.sendFile(__path+'/tmp/hitler.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/notstonk', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await new DIG.NotStonk().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/notstonk.png', img)
+  res.sendFile(__path+'/tmp/notstonk.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/poutine', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await new DIG.Poutine().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/poutine.png', img)
+  res.sendFile(__path+'/tmp/poutine.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/rip', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await new DIG.Rip().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/rip.png', img)
+        res.sendFile(__path+'/tmp/rip.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/trash', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await new DIG.Trash().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/trash.png', img)
+        res.sendFile(__path+'/tmp/trash.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+
+
+router.get('/lisa', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            text = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
+
+       img = await new DIG.LisaPresentation().getImage(`${text}`)
+        await fs.writeFileSync(__path +'/tmp/lisa.png', img)
+  res.sendFile(__path+'/tmp/lisa.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/gay', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await new DIG.Gay().getImage(`${image}`)
+        await fs.writeFileSync(__path +'/tmp/gay.png', img)
+  res.sendFile(__path+'/tmp/gay.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/komunis', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await Caxinha.canvas.comunism(`${image}`);
+        await fs.writeFileSync(__path +'/tmp/komunis.png', img)
+  res.sendFile(__path+'/tmp/komunis.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/wasted', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       img = await Caxinha.canvas.wasted(`${image}`);
+        await fs.writeFileSync(__path +'/tmp/wasted.png', img)
+  res.sendFile(__path+'/tmp/wasted.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/wolverine', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            image = req.query.image
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!image) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter image"})
+
+       let hasil = `https://vacefron.nl/api/wolverine?user=${image}`
+      data = await fetch(hasil).then(v => v.buffer())
+        await fs.writeFileSync(__path +'/tmp/wolverine.png', data)
+  res.sendFile(__path+'/tmp/wolverine.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/amongus', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            name = req.query.name,
+            impostor = req.query.impostor,
+            color = req.query.color
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!name) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter name"})
+    if (!impostor) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter impostor (true=impostor && false=not impostor)"})
+    if (!color) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter color > list color black|blue|brown|cyan|darkgreen|lime|orange|pink|purple|red|white|yellow "})
+    
+    
+       let hasil = `https://vacefron.nl/api/ejected?name=${name}&impostor=${impostor}&crewmate=${color}`
+      data = await fetch(hasil).then(v => v.buffer())
+        await fs.writeFileSync(__path +'/tmp/amongus.png', data)
+  res.sendFile(__path+'/tmp/amongus.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+//greetings====canvas
+
+router.get('/goodbye', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            discriminator = req.query.discriminator,
+            member = req.query.member,
+            gc = req.query.gc,
+            pp = req.query.pp,
+            bg = req.query.bg,            
+            tcolor = req.query.tcolor,
+            color = req.query.color
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!discriminator) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter discriminator"})
+    if (!member) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter member"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    if (!tcolor) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter tcolor"})
+    if (!color) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter color"})
+    
+var image = await new Cannvas.Goodbye()
+   .setUsername(`${nama}`)
+  .setDiscriminator(`${discriminator}`)
+  .setMemberCount(`${member}`)
+  .setGuildName(`${gc}`)
+  .setAvatar(`${pp}`)
+  .setColor("border", `#${color}`)
+  .setColor("username-box", `#${color}`)
+  .setColor("discriminator-box", `#${color}`)
+  .setColor("message-box", `#${color}`)
+  .setColor("title", `#${tcolor}`)
+  .setColor("avatar", `#${color}`)
+  .setBackground(`${bg}`)
+  .toAttachment();
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/goodbye.png', data)
+  res.sendFile(__path+'/tmp/goodbye.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+
+router.get('/welcome', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            discriminator = req.query.discriminator,
+            member = req.query.member,
+            gc = req.query.gc,
+            pp = req.query.pp,
+            bg = req.query.bg,            
+            tcolor = req.query.tcolor,
+            color = req.query.color
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!discriminator) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter discriminator"})
+    if (!member) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter member"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    if (!tcolor) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter tcolor"})
+    if (!color) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter color"})
+    
+var image = await new Cannvas.Welcome()
+  .setUsername(`${nama}`)
+  .setDiscriminator(`${discriminator}`)
+  .setMemberCount(`${member}`)
+  .setGuildName(`${gc}`)
+  .setAvatar(`${pp}`)
+  .setColor("border", `#${color}`)
+  .setColor("username-box", `#${color}`)
+  .setColor("discriminator-box", `#${color}`)
+  .setColor("message-box", `#${color}`)
+  .setColor("title", `#${tcolor}`)
+  .setColor("avatar", `#${color}`)
+  .setBackground(`${bg}`)
+  .toAttachment();
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/welcome.png', data)
+  res.sendFile(__path+'/tmp/welcome.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+router.get('/level', async (req, res, next) => {
+          var apikeyInput = req.query.apikey,
+            username = req.query.username,
+            discrim = req.query.discrim,
+            lvl = req.query.lvl,
+            rang = req.query.rang,
+            needxp = req.query.needxp,
+            curxp = req.query.curxp,
+            av = req.query.av,
+            bg = req.query.bg  
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!username) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter username"})
+    if (!discrim) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter discrim"})
+    if (!lvl) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter lvl"})
+    if (!rang) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter rang"})
+    if (!needxp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter needxp"})
+    if (!curxp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter curxp"})
+    if (!av) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter av"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    
+    
+    
+     let img = await yuricanvas.rank({ 
+            username, 
+            discrim, 
+            level: lvl, 
+            rank: rang, 
+            neededXP: needxp, 
+            currentXP: curxp, 
+            avatarURL: av, 
+            color: "white", 
+            background: `${bg}`
+        });
+        await fs.writeFileSync(__path +'/tmp/lvl.png', img)
+  res.sendFile(__path+'/tmp/lvl.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/welkom2', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            pp = req.query.pp,
+            bg = req.query.bg,           
+            bcolor = req.query.bcolor
+            
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    if (!bcolor) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bcolor"})
+    
+    
+let Welcome = await new scanvas.Welcome()
+.setName(`${nama}`)
+.setBackgroundColor(`#${bcolor}`) 
+.setStrokeColor("#ffffff")  
+.setTextColor("#ffffff") 
+.setShadow(true)
+.setAvatar(`${pp}`)
+.setBackground(`${bg}`)
+.toAttachment()
+    
+ data = Welcome.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/welkom2.png', data)
+  res.sendFile(__path+'/tmp/welkom2.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/goodbye2', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            pp = req.query.pp,
+            bg = req.query.bg,           
+            bcolor = req.query.bcolor
+            
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    if (!bcolor) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bcolor"})
+    
+let Goodbye = await new scanvas.Goodbye()
+.setName(`${nama}`)
+.setBackgroundColor(`#${bcolor}`) 
+.setStrokeColor("#ffffff")  
+.setTextColor("#ffffff") 
+.setShadow(true)
+.setAvatar(`${pp}`)
+.setBackground(`${bg}`)
+.toAttachment()
+    
+ data = Goodbye.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/goodbye2.png', data)
+  res.sendFile(__path+'/tmp/goodbye2.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+//===canvacord
+
+router.get('/changemymind', async (req, res, next) => {
+          var apikeyInput = req.query.apikey,
+            text = req.query.text
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
+    
+    
+     let img = await yuricanvas.changemymind(`${text}`)
+        await fs.writeFileSync(__path +'/tmp/cmm.png', data)
+  res.sendFile(__path+'/tmp/cmm.png')
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+//swiftlite
+
+router.get('/swiftlite/welkom', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            gc = req.query.gc,
+            ppgc = req.query.ppgc,
+            member = req.query.member,
+            pp = req.query.pp,
+            bg = req.query.bg            
+
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!member) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter member"})
+    if (!ppgc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter ppgc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    
+    
+var image = await new swiftlite.Welcome()
+    .setUsername(`${nama}`)
+    .setGuildName(`${gc}`)
+    .setGuildIcon(`${ppgc}`)
+    .setMemberCount(`${member}`)
+    .setAvatar(`${pp}`)
+    .setBackground(`${bg}`)
+    .toAttachment();
+  
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/swelkom.png', data)
+  res.sendFile(__path +'/tmp/swelkom.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+
+router.get('/swiftlite/goodbye', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            nama = req.query.nama,
+            gc = req.query.gc,
+            ppgc = req.query.ppgc,
+            member = req.query.member,
+            pp = req.query.pp,
+            bg = req.query.bg            
+
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!nama) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nama"})
+    if (!gc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter gc"})
+    if (!member) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter member"})
+    if (!ppgc) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter ppgc"})
+    if (!pp) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter pp"})
+    if (!bg) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter bg"})
+    
+    
+var image = await new swiftlite.Goodbye()
+    .setUsername(`${nama}`)
+    .setGuildName(`${gc}`)
+    .setGuildIcon(`${ppgc}`)
+    .setMemberCount(`${member}`)
+    .setAvatar(`${pp}`)
+    .setBackground(`${bg}`)
+    .toAttachment();
+  
+
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/sgoodbye.png', data)
+  res.sendFile(__path +'/tmp/sgoodbye.png')
+  .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+//end===canvas===greetings
+
+router.get('/infonpm', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+            query = req.query.query
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+    if (!query) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter query"})
+
+       fetch(encodeURI(`https://registry.npmjs.org/${query}`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 status : true,
+                 creator : `${creator}`,
+                 result,
+                 message : `jangan lupa follow ${creator}`
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+})
+
+
+router.get('/short/tiny', async (req, res, next) => {
+    var apikeyInput = req.query.apikey,
+        url = req.query.url
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'RakuGans') return res.json(loghandler.invalidKey)
+     if (!url) return res.json(loghandler.noturl)
+
+     request(`https://tinyurl.com/api-create.php?url=${url}`, function (error, response, body) {
+         try {
+             res.json({
+                 status : true,
+                 creator : `${creator}`,
+                 result : {
+                     link : `${body}`,
+                 },
+                 message : `jangan lupa follow ${creator}`
+             })
+         } catch (e) {
+             console.log('Error :', color(e,'red'))
+             res.json(loghandler.invalidlink)
+         }
+     })
+})
+
 /*
 =====> GACHA CECAN <=====
 */
