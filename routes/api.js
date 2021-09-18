@@ -183,7 +183,7 @@ var len = 15
 
         var randomTextNumber = random+randomlagi+'---------RakuGans'+'ZEROBOT-API';
         
- 
+ const apikey = ["RakuGans"] 
 async function cekApiKey(api) {
  	ap = await zahirr.findOne({apikey:api})
  return ap;
